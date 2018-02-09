@@ -38,7 +38,7 @@
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{ url_for('static', filename='admin/dist/img/user2-160x160.jpg') }}../static/"
+                            <img src="{{ url_for('static', filename='admin/dist/img/user2-160x160.jpg') }}"
                                  class="user-image" alt="User Image">
                             <span class="hidden-xs">xxx</span>
                         </a>
@@ -53,7 +53,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="pwd.html" class="btn btn-default btn-flat">修改密码</a>
+                                    <a href="{{ url_for('admin.pwd') }}" class="btn btn-default btn-flat">修改密码</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ url_for('admin.login') }}" class="btn btn-default btn-flat">退出系统</a>

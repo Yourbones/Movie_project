@@ -5,7 +5,7 @@ from datetime import datetime
 import pymysql
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@127.0.0.1/movie"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:123456@127.0.0.1/movie"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 
 db = SQLAlchemy(app)
@@ -144,6 +144,10 @@ class Admin(db.Model):
     def __repr__(self):
         return "<Admin %r>" % self.name
 
+    def check_pwd(self,pwd):
+        from werkzeug.security import check_password_hash
+        return check_password_hash(self.pwd, pwd)
+
 #管理员登陆日志
 class Adminlog(db.Model):
     ___table__name = 'adminlog'#表名
@@ -168,10 +172,11 @@ class Oplog(db.Model):
         return "<Oplog %r>" % self.id
 
 
-#把以上这些模型生成一个数据表
+#把以上这些模型生成一个数据表 "
 if __name__ == "__main__":
-    # db.create_all()
-    """role = Role(
+    #db.create_all()
+    """
+    role = Role(
         name="超级管理员",
         auths=""
     )
@@ -179,10 +184,9 @@ if __name__ == "__main__":
     db.session.commit()
     """
     from werkzeug.security import generate_password_hash
-
     admin = Admin(
-        name="imoocmovie",
-        pwd=generate_password_hash("imoocmovie"),
+        name="immocmovie",
+        pwd=generate_password_hash("immocmovie"),
         is_super=0,
         role_id=1
     )
