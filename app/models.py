@@ -1,14 +1,7 @@
 #coding:utf-8
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import pymysql
+from app import db
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:123456@127.0.0.1/movie"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-
-db = SQLAlchemy(app)
 
 #创建会员模型
 class User(db.Model):
@@ -174,7 +167,7 @@ class Oplog(db.Model):
 
 #把以上这些模型生成一个数据表 "
 if __name__ == "__main__":
-    #db.create_all()
+    # db.create_all()
     """
     role = Role(
         name="超级管理员",
@@ -185,10 +178,11 @@ if __name__ == "__main__":
     """
     from werkzeug.security import generate_password_hash
     admin = Admin(
-        name="immocmovie",
-        pwd=generate_password_hash("immocmovie"),
+        name="imoocmovie",
+        pwd=generate_password_hash("imoocmovie"),
         is_super=0,
         role_id=1
     )
     db.session.add(admin)
     db.session.commit()
+
