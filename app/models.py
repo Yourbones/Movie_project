@@ -122,6 +122,7 @@ class Role(db.Model):
     def __repr__(self):
         return "<Role %r>" % self.name
 
+
 #管理员
 class Admin(db.Model):
     __tablename__ = 'admin'#表面
@@ -137,7 +138,7 @@ class Admin(db.Model):
     def __repr__(self):
         return "<Admin %r>" % self.name
 
-    def check_pwd(self,pwd):
+    def check_pwd(self, pwd):
         from werkzeug.security import check_password_hash
         return check_password_hash(self.pwd, pwd)
 
@@ -166,7 +167,7 @@ class Oplog(db.Model):
 
 
 #把以上这些模型生成一个数据表 "
-if __name__ == "__main__":
+#if __name__ == "__main__":
     # db.create_all()
     """
     role = Role(
@@ -176,13 +177,13 @@ if __name__ == "__main__":
     db.session.add(role)
     db.session.commit()
     """
-    from werkzeug.security import generate_password_hash
-    admin = Admin(
-        name="imoocmovie",
-        pwd=generate_password_hash("imoocmovie"),
-        is_super=0,
-        role_id=1
-    )
-    db.session.add(admin)
-    db.session.commit()
+    # from werkzeug.security import generate_password_hash
+    # admin = Admin(
+    #     name="imoocmovie",
+    #     pwd=generate_password_hash("imoocmovie"),
+    #     is_super=0,
+    #     role_id=1
+    # )
+    # db.session.add(admin)
+    # db.session.commit()
 
