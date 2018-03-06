@@ -5,7 +5,7 @@
     <h1>微电影管理系统</h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 电影管理</a></li>
-        <li class="active">添加电影</li>
+        <li class="active">修改电影</li>
     </ol>
 </section>
 <section class="content" id="showcontent">
@@ -13,7 +13,7 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">添加电影</h3>
+                    <h3 class="box-title">修改电影</h3>
                 </div>
                 <form role="form" method="post" enctype="multipart/form-data">
                     <div class="box-body">
@@ -25,7 +25,7 @@
                         </div>
                         {% endfor %}
                         <div class="form-group">
-                            <label for="input_title">{{ form.title.label}}</label>
+                            <label for="input_title">{{ form.title.label }}</label>
                             {{ form.title }}
                             {% for err in form.title.errors %}
                             <div class="col-md-12">
@@ -123,6 +123,36 @@
 {% endblock %}
 
 {% block js %}
+<script src="{{ url_for('static',filename='jwplayer/jwplayer.js') }}"></script>
+<script type="text/javascript">
+    jwplayer.key = "P9VTqT/X6TSP4gi/hy1wy23BivBhjdzVjMeOaQ==";
+
+</script>
+<script type="text/javascript">
+    jwplayer("moviecontainer").setup({
+        flashplayer: "{{ url_for('static', filename='jwplayer/jwplayer.flash.swf') }}",
+        playlist: [{
+            file: "{{ url_for('static', filename='video/htpy.mp4')}}",
+            title: "环太平洋"
+        }],
+        modes: [{
+            type: "html5"
+        }, {
+            type: "flash",
+            src: "{{ url_for('static', filename='jwplayer/jwplayer.flash.swf') }}"
+        }, {
+            type: "download"
+        }],
+        skin: {
+            name: "vapor"
+        },
+        "playlist.position": "left",
+        "playlist.size": 200,
+        height: 250,
+        width: 387,
+    });
+
+</script>
 <script>
     $(document).ready(function () {
         $("#g-3").addClass("activate");
@@ -138,4 +168,4 @@
     });
 
 </script>
-{% endblock %}}
+{% endblock %}

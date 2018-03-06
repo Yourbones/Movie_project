@@ -5,7 +5,7 @@ from app import db
 
 #创建会员模型
 class User(db.Model):
-    __tablename__='user'
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)#编号
     name = db.Column(db.String(100), unique=True)#昵称
     pwd = db.Column(db.String(100))#密码
