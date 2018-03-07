@@ -77,6 +77,7 @@ class Preview(db.Model):
     def ___repr__(self):
         return "<Preview %r>" % self.title
 
+
 #评论
 class Comment(db.Model):
     __tablename__='comment' #表名
