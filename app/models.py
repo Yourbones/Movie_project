@@ -154,6 +154,7 @@ class Adminlog(db.Model):
     def __repr__(self):
         return "<Adminlog %r>" % self.id
 
+
 #操作日志数据模型
 class Oplog(db.Model):
     __tablename__ = 'oplog'#表名
