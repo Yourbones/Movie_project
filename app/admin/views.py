@@ -1,7 +1,7 @@
 # coding:utf-8
 from . import admin #引入蓝本
 from flask import render_template, redirect, url_for, flash, session, request
-from app.admin.forms import LoginForm, TagForm, MovieForm, PreviewForm
+from app.admin.forms import LoginForm, TagForm, MovieForm, PreviewForm, PwdForm
 from app.models import Admin, Tag, Movie, Preview, User, Comment, Moviecol
 from functools import wraps
 from app import db, app
@@ -43,7 +43,7 @@ def login():
         data = form.data
         admin = Admin.query.filter_by(name=data["account"]).first()
         if not admin.check_pwd(data["pwd"]):
-            flash("密码错误")
+            flash("密码错误", "err")
             return redirect(url_for("admin.login"))
         session["admin"] = data["account"]
         return redirect(request.args.get("next") or url_for("admin.index"))
@@ -56,12 +56,22 @@ def logout():
     return redirect(url_for("admin.login"))
 
 
-@admin.route("/pwd/")
+@admin.route("/pwd/", methods=["GET", "POST"])
 def pwd():
-    return render_template("admin/pwd.html")
+    form = PwdForm()
+    if form.validate_on_submit():
+        data = form.data
+        admin = Admin.query.filter_by(name=session["admin"]).first()
+        from werkzeug.security import generate_password_hash
+        admin.pwd = generate_password_hash(data["new_pwd"])
+        db.session.add(admin)
+        db.session.commit()
+        flash("修改密码成功，请重新登录", "ok")
+        redirect(url_for("admin.logout"))
+    return render_template("admin/pwd.html", form=form)
 
 
-# 添加标签
+# 添加标签[
 @admin.route("/tag/add/", methods=["GET", "POST"])
 def tag_add():
     form = TagForm()
