@@ -49,8 +49,8 @@
                             <th>上映时间</th>
                             <th>操作事项</th>
                         </tr>
+                        {% for v in page_data.items %}
                         <tr>
-                            {% for v in page_data.items %}
                             <td>{{ v.id }}</td>
                             <td>{{ v.title }}</td>
                             <td>{{ v.length }}</td>
