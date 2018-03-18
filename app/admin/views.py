@@ -425,7 +425,7 @@ def adminloginlog_list(page=None):
 def userloginlog_list(page=None):
     if page is None:
         page = 1
-    page_data=Userlog.query.join(
+    page_data = Userlog.query.join(
         User
     ).filter(
         User.id == Userlog.user_id,
